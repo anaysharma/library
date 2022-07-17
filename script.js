@@ -63,12 +63,34 @@ function showBooks (item) {
     <h4>Book Name : ${item.bookName}</h4>
     <p>Author Name : ${item.author}</p>
     <p>No. of pages : ${item.pageCount}</p>
-    <button class="delete-book" id="${item.index}">delete</button>
+    <button class="delete-book" value="${item.index}">delete</button>
   </div>`;
 }
 
-function deleteBook () {
-  console.log(this.id)
+if (document.addEventListener) {
+    document.addEventListener("click", handleClick, false);
+} else if (document.attachEvent) {
+    document.attachEvent("onclick", handleClick);
+}
+
+function handleClick(event) {
+    event = event || window.event;
+    event.target = event.target || event.srcElement;
+    var element = event.target;
+    while (element) {
+        if (element.nodeName === "BUTTON" && /delete-book/.test(element.className)) {
+            // The user clicked on a <button> or clicked on an element inside a <button>
+            // with a class name called "foo"
+            deleteBook(element);
+            break;
+        }
+
+        element = element.parentNode;
+    }
+}
+
+function deleteBook (button) {
+  console.log(button.value)
 }
 
 form.addEventListener("submit", addBook);
