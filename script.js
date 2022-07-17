@@ -3,50 +3,74 @@ const openModal = document.querySelector(".open-button");
 const closeModal = document.querySelector(".close-button");
 const form = document.querySelector(".form");
 const bookCards = document.querySelector(".books");
-const show = document.querySelector(".show")
+const show = document.querySelector(".show");
+
 
 let myLibrary = [];
-let index = 0;
+var globalIdx = 0;
 
-function Book (
-  bookName = "Unknown",
-  author = "Unknown",
-  pageCount = 0,
-  readStatus = false
-  ) {
-  index += 1;
-  this.index = index;
-	this.name = bookName;
-  this.auth = author; 
-  this.page = pageCount;
-  this.read = readStatus;
-}
-
-function addBookToLibrary () {
-  let bookName = document.getElementById("book-name").value;
-  let bookAuthor = document.getElementById("book-author").value;
-  let pageCount = document.getElementById("page-number").value;
-  let read = document.getElementById("read-status").checked;
-  readStatus = read ? true : false;
-  let book = new Book(bookName, bookAuthor, pageCount, readStatus);
-  myLibrary.push(book);
-  showBook();
-}
-
-function showBook () {
-  for(let i = 0; i < myLibrary.length; i++) {
-    bookCards.innerHTML += `<div class="card">
-      ${myLibrary[i].name} 
-      \n${myLibrary[i].index}
-      \n${myLibrary[i].auth}
-      \n${myLibrary[i].page}
-      \n${myLibrary[i].read}
-    </div>`;
+class book {
+  constructor (
+    name = "unknown", 
+    author = "unknown", 
+    pages = "0", 
+    readStatus = false
+    ) {
+    this.bookName = name;
+    this.author = author;
+    this.pageCount = pages;
+    this.readStatus = readStatus
+    this.index = ++globalIdx;
   }
+
+  getName () { return this.name; }
+  getAuthor () { return this.author; }
+  getPageCount () { return this.pageCount; }
+  isRead () { return this.readStatus; }
+  getIndex () { return this.index; }
+
+  toggleReadStatus () {
+    if (this.readStatus === true) {
+      this.readStatus = false;
+    } else {
+      this.readStatus = true;
+    }
+  }
+};
+
+function addBook () {
+  let bookName = form.elements[0].value;
+  let author = form.elements[1].value;
+  let pages = form.elements[2].value;
+  let read = form.elements[3].checked;
+
+  let newBook = new book(
+    bookName,
+    author,
+    pages,
+    read
+  );
+
+  myLibrary.push(newBook);
+  showBooks(newBook);
+
+  form.reset();
 }
 
+function showBooks (item) {
+  bookCards.innerHTML += 
+  `<div class="book-card" index="${item.index}">
+    <h4>Book Name : ${item.bookName}</h4>
+    <p>Author Name : ${item.author}</p>
+    <p>No. of pages : ${item.pageCount}</p>
+    <button class="delete-book" id="${item.index}">delete</button>
+  </div>`;
+}
 
-form.addEventListener("submit", addBookToLibrary());
-show.addEventListener("click", showBook());
+function deleteBook () {
+  console.log(this.id)
+}
+
+form.addEventListener("submit", addBook);
 openModal.addEventListener("click", () => { modal.showModal();});
 closeModal.addEventListener("click", () => { modal.close();});
