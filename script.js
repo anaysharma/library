@@ -74,6 +74,7 @@ function showBooks () {
         </div>
       </div>`;
   }
+  navStatus();
 }
 
 if (document.addEventListener) {
@@ -107,7 +108,6 @@ function deleteBook (button) {
     if (myLibrary[i].index == idx) {
       myLibrary.splice(i, 1);
       showBooks();
-      navStatus();
     }
   }
 }
@@ -118,6 +118,7 @@ function changeReadStatus (element) {
     if (myLibrary[i].index == idx) {
       myLibrary[i].toggleReadStatus();
       document.querySelector(".book-container").classList.toggle("checked");
+      showBooks();
     }
   }
 }
@@ -125,12 +126,14 @@ function changeReadStatus (element) {
 function navStatus () {
   let bookCount = myLibrary.length;
   let readBooks = 0;
-  for (let i = 0; i < bookCount i++) {
+  for (let i = 0; i < bookCount; i++) {
     if (myLibrary[i].readStatus === true) {
       readBooks++;
     }
   }
-
+  document.querySelector(".book-count").textContent = `Total Books : ${bookCount}`;
+  document.querySelector(".book-read").textContent = `Read : ${readBooks}`;
+  document.querySelector(".book-unread").textContent = `Unread : ${bookCount-readBooks}`
 }
 
 form.addEventListener("submit", addBook);

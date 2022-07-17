@@ -8,8 +8,23 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-	<nav class="navbar"></nav>
-	<button class="button open-button">Add Book</button>
+	<nav class="navbar">
+    <img src="/logos/online-library.png">
+    <div class="status">
+      <div class="book-count">
+        <img src="/logos/books.svg">
+      </div>
+      <div class="book-read">
+        <img src="/logos/eye.svg">
+      </div>
+      <div class="book-unread">
+        <img src="/logos/eye-crossed.svg">
+      </div>
+    </div>
+    <button class="button open-button">
+      <img src="/logos/add.svg">Add Book
+    </button> 
+  </nav>	
 	<div class="books"></div>
 	<dialog class="modal" id="modal">
 		<button class="button close-button">×</button>
