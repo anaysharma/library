@@ -44,20 +44,13 @@ function addBook () {
   let pages = form.elements[2].value;
   let read = form.elements[3].checked;
 
-  let newBook = new book(
-    bookName,
-    author,
-    pages,
-    read
-  );
-
+  let newBook = new book( bookName, author, pages, read );
   myLibrary.push(newBook);
-  showBooks(newBook);
-
+  addBooksToDOM(newBook);
   form.reset();
 }
 
-function showBooks (item) {
+function addBooksToDOM (item) {
   bookCards.innerHTML += 
   `<div class="book-card" index="${item.index}">
     <h4>Book Name : ${item.bookName}</h4>
@@ -68,25 +61,22 @@ function showBooks (item) {
 }
 
 if (document.addEventListener) {
-    document.addEventListener("click", handleClick, false);
+  document.addEventListener("click", handleClick, false);
 } else if (document.attachEvent) {
-    document.attachEvent("onclick", handleClick);
+  document.attachEvent("onclick", handleClick);
 }
 
 function handleClick(event) {
-    event = event || window.event;
-    event.target = event.target || event.srcElement;
-    var element = event.target;
-    while (element) {
-        if (element.nodeName === "BUTTON" && /delete-book/.test(element.className)) {
-            // The user clicked on a <button> or clicked on an element inside a <button>
-            // with a class name called "foo"
-            deleteBook(element);
-            break;
-        }
-
-        element = element.parentNode;
+  event = event || window.event;
+  event.target = event.target || event.srcElement;
+  var element = event.target;
+  while (element) {
+    if (element.nodeName === "BUTTON" && /delete-book/.test(element.className)) {
+      deleteBook(element);
+      break;
     }
+    element = element.parentNode;
+  }
 }
 
 function deleteBook (button) {
