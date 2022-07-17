@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300&family=Poppins:wght@200;300;400;500&display=swap');
 
-*,
-*::after,
-*::before {
+*, *::after, *::before {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -11,22 +9,14 @@
 :root {
 	--font-title: 'Poppins', sans-serif;
 	--font-primary: 'Albert Sans', sans-serif;
-	--gradient-decor: linear-gradient(
-		to top,
-		#0077b6 0% 20%,
-		#2a9d8f 0% 40%,
-		#e9c46a 0% 60%,
-		#f4a261 0% 80%,
-		#e76f51 0% 100%);
+	--gradient-decor: linear-gradient(to top, #0077b6 0% 20%, #2a9d8f 0% 40%, #e9c46a 0% 60%, #f4a261 0% 80%, #e76f51 0% 100%);
 	--color-green: #9ddbad;
 	--color-green-light: #c3e8bd;
 	--color-red: #ef233c;
 	--color-white: #ffffff;
 	--color-white-shade: #f1faee;
-	--outline: 1px solid rgba(210,210,210,1);
-	--shadow:
-		0rem 0rem 0.4rem rgba(0,0,0,0.2),
-		0.2rem 0.4rem 1rem rgba(0,0,0,0.1);
+	--outline: 1px solid rgba(210, 210, 210, 1);
+	--shadow: 0rem 0rem 0.4rem rgba(0, 0, 0, 0.2), 0.2rem 0.4rem 1rem rgba(0, 0, 0, 0.1);
 }
 
 button {
@@ -73,7 +63,9 @@ img {
 	width: 1.1rem;
 }
 
-.logo { width: 3rem; }
+.logo {
+	width: 3rem;
+}
 
 div.status {
 	opacity: 0.6;
@@ -138,6 +130,7 @@ div.checked {
 div.book-card p {
 	font-family: var(--font-title);
 }
+
 div.book-card h4 {
 	opacity: 0.7;
 	font-family: var(--font-primary);
@@ -162,24 +155,23 @@ label {
 }
 
 dialog {
-  padding: 0;
-  border: none !important;
-  outline: var(--outline);
-  border-radius: 0.3rem;
-  box-shadow: var(--shadow);
-  width: 34rem;
-  height: 23rem;
-  padding: 1rem;
-  position: absolute;
-   left: 50%;
-   top: 50%; 
-   margin-left: -17rem;
-   margin-top: -11.5rem;
-
+	padding: 0;
+	border: none !important;
+	outline: var(--outline);
+	border-radius: 0.3rem;
+	box-shadow: var(--shadow);
+	width: 34rem;
+	height: 23rem;
+	padding: 1rem;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -17rem;
+	margin-top: -11.5rem;
 }
 
 dialog::backdrop {
-	background-color: rgba(180, 180, 180,0.4);
+	background-color: rgba(180, 180, 180, 0.4);
 	backdrop-filter: blur(1rem);
 }
 
@@ -249,7 +241,6 @@ div.dialog-buttons button[type="submit"] {
 div.dialog-buttons button[type="submit"]:hover {
 	background-color: var(--color-green);
 }
-
 
 button:hover {
 	opacity: 1;
