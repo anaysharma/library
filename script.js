@@ -43,8 +43,9 @@ function addBook () {
   let author = form.elements[1].value;
   let pages = form.elements[2].value;
   let read = form.elements[3].checked;
-
-  let newBook = new Book( bookName, author, pages, read );
+  const name = bookName.charAt(0).toUpperCase() + bookName.slice(1);
+  const authorName = author.charAt(0).toUpperCase() + author.slice(1);
+  let newBook = new Book( name, authorName, pages, read );
   myLibrary.push(newBook);
   showBooks();
   form.reset();
@@ -63,13 +64,13 @@ function showBooks () {
       `<div class="book-container ${read}">
         <div class="decor"></div>
         <div class="book-card" index="${myLibrary[i].index}">
-          <h4>Book Name : ${myLibrary[i].bookName}</h4>
-          <p>Author Name : ${myLibrary[i].author}</p>
+          <h4>${myLibrary[i].bookName}</h4>
+          <p>Author : ${myLibrary[i].author}</p>
           <p>No. of pages : ${myLibrary[i].pageCount}</p>
           <div class="card-buttons">
-            <label for="read">Toggle Read Status</label>
+            <button class="delete-book" value="${myLibrary[i].index}"><img src="/logos/trash.svg"></button>
+            <label for="read">Read Status</label>
             <input type="checkbox" value="${myLibrary[i].index}" name="read" class="read" ${read}>
-            <button class="delete-book" value="${myLibrary[i].index}">Delete</button>
           </div>
         </div>
       </div>`;
@@ -131,11 +132,13 @@ function navStatus () {
       readBooks++;
     }
   }
-  document.querySelector(".book-count").textContent = `Total Books : ${bookCount}`;
-  document.querySelector(".book-read").textContent = `Read : ${readBooks}`;
-  document.querySelector(".book-unread").textContent = `Unread : ${bookCount-readBooks}`
+  document.querySelector(".status").innerHTML = `
+    <img src="/logos/books.svg"> Total Books : ${bookCount}
+    <img src="/logos/eye.svg"> Read Books : ${readBooks}
+    <img src="/logos/eye-crossed.svg"> Unread Books: ${bookCount - readBooks}`
 }
 
+window.onload = showBooks();
 form.addEventListener("submit", addBook);
 openModal.addEventListener("click", () => { modal.showModal();});
 closeModal.addEventListener("click", () => { modal.close();});

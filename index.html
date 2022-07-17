@@ -3,27 +3,19 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/logos/online-library.png" type="image/x-icon">
 	<title>library</title>
 	<script defer type="text/javascript" src="script.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 	<nav class="navbar">
-    <img src="/logos/online-library.png">
-    <div class="status">
-      <div class="book-count">
-        <img src="/logos/books.svg">
-      </div>
-      <div class="book-read">
-        <img src="/logos/eye.svg">
-      </div>
-      <div class="book-unread">
-        <img src="/logos/eye-crossed.svg">
-      </div>
+    <div class="title">
+      <img src="/logos/online-library.png" class="logo">
+      <h2>My Library</h2>
     </div>
-    <button class="button open-button">
-      <img src="/logos/add.svg">Add Book
-    </button> 
+    <div class="status"></div>
+    <button class="button open-button"><img src="/logos/add.svg">Add Book</button>
   </nav>	
 	<div class="books"></div>
 	<dialog class="modal" id="modal">
@@ -31,22 +23,24 @@
 		<form class="form" method="dialog">
 			<div class="book-input">
 				<label for="book-name">Book Name :</label>
-				<input type="text" name="book-name" id="book-name">
+				<input type="text" name="book-name" id="book-name" placeholder='eg. "Harry Potter"'>
 			</div>
 			<div class="book-input">
 				<label for="book-author">Author Name :</label>
-				<input type="text" name="book-author" id="book-author">
+				<input type="text" name="book-author" id="book-author" placeholder='eg. "J. K. Rowling"'>
 			</div>
 			<div class="book-input">
 				<label for="page-number">Page Count :</label>
-				<input type="number" name="page-number" id="page-number">
+				<input type="text" name="page-number" id="page-number" pattern="^[0-9]*$" placeholder="only numbers">
 			</div>
 			<div class="read">
 				<label for="read-status">have you read this book ?</label>
 				<input type="checkbox" value="1" name="read-status" id="read-status">
 			</div>
-			<button class="button" type="submit">Add</button>
-			<button class="button" type="reset">clear</button>
+      <div class="dialog-buttons">
+  			<button class="button" type="submit">Add</button>
+  			<button class="button" type="reset">Clear</button>
+      </div>
 		</form>
 	</dialog>
 </body>
