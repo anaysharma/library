@@ -9,7 +9,7 @@ const show = document.querySelector(".show");
 let myLibrary = [];
 var globalIdx = 0;
 
-class book {
+class Book {
   constructor (
     name = "unknown", 
     author = "unknown", 
@@ -44,20 +44,36 @@ function addBook () {
   let pages = form.elements[2].value;
   let read = form.elements[3].checked;
 
-  let newBook = new book( bookName, author, pages, read );
+  let newBook = new Book( bookName, author, pages, read );
   myLibrary.push(newBook);
-  addBooksToDOM(newBook);
+  showBooks();
   form.reset();
 }
 
-function addBooksToDOM (item) {
-  bookCards.innerHTML += 
-  `<div class="book-card" index="${item.index}">
-    <h4>Book Name : ${item.bookName}</h4>
-    <p>Author Name : ${item.author}</p>
-    <p>No. of pages : ${item.pageCount}</p>
-    <button class="delete-book" value="${item.index}">delete</button>
-  </div>`;
+function showBooks () {
+  bookCards.innerHTML = "";
+  for (let i = 0; i < myLibrary.length; i++) {
+    let read;
+    if (myLibrary[i].readStatus === true) {
+      read = "checked";
+    } else {
+      read = ""
+    }
+    bookCards.innerHTML +=
+      `<div class="book-container ${read}">
+        <div class="decor"></div>
+        <div class="book-card" index="${myLibrary[i].index}">
+          <h4>Book Name : ${myLibrary[i].bookName}</h4>
+          <p>Author Name : ${myLibrary[i].author}</p>
+          <p>No. of pages : ${myLibrary[i].pageCount}</p>
+          <div class="card-buttons">
+            <label for="read">Toggle Read Status</label>
+            <input type="checkbox" value="${myLibrary[i].index}" name="read" class="read" ${read}>
+            <button class="delete-book" value="${myLibrary[i].index}">Delete</button>
+          </div>
+        </div>
+      </div>`;
+  }
 }
 
 if (document.addEventListener) {
@@ -66,21 +82,55 @@ if (document.addEventListener) {
   document.attachEvent("onclick", handleClick);
 }
 
-function handleClick(event) {
+function handleClick (event) {
   event = event || window.event;
   event.target = event.target || event.srcElement;
   var element = event.target;
   while (element) {
-    if (element.nodeName === "BUTTON" && /delete-book/.test(element.className)) {
-      deleteBook(element);
-      break;
+    if ((element.nodeName === "BUTTON" && /delete-book/.test(element.className))
+      || (element.nodeName === "INPUT" && /read/.test(element.className))) {
+      if (element.nodeName === "BUTTON") {
+        deleteBook(element);
+        break;
+      } else if (element.nodeName === "INPUT") {
+        changeReadStatus(element);
+        break;
+      }      
     }
     element = element.parentNode;
   }
 }
 
 function deleteBook (button) {
-  console.log(button.value)
+  let idx = button.value;
+  for (var i = myLibrary.length - 1; i >= 0; i--) {
+    if (myLibrary[i].index == idx) {
+      myLibrary.splice(i, 1);
+      showBooks();
+      navStatus();
+    }
+  }
+}
+
+function changeReadStatus (element) {
+  let idx = element.value;
+  for (var i = myLibrary.length - 1; i >= 0; i--) {
+    if (myLibrary[i].index == idx) {
+      myLibrary[i].toggleReadStatus();
+      document.querySelector(".book-container").classList.toggle("checked");
+    }
+  }
+}
+
+function navStatus () {
+  let bookCount = myLibrary.length;
+  let readBooks = 0;
+  for (let i = 0; i < bookCount i++) {
+    if (myLibrary[i].readStatus === true) {
+      readBooks++;
+    }
+  }
+
 }
 
 form.addEventListener("submit", addBook);
