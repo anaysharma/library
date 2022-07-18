@@ -52,7 +52,8 @@ function addBook () {
 }
 
 function cardHTML (name, author, noOfPages, index, read) {
-  let html = `<div class="book-container ${read}">
+  let html = 
+   `<div class="book-container ${read}">
       <div class="decor"></div>
       <div class="book-card" index="${index}">
         <h4>${name}</h4>
@@ -65,7 +66,7 @@ function cardHTML (name, author, noOfPages, index, read) {
         </div>
       </div>
     </div>`;
-    return html;
+  return html;
 }
 
 function showBooks () {
@@ -77,7 +78,7 @@ function showBooks () {
     } else {
       read = ""
     }
-    bookCards.innerHTML += cardHTML(
+    bookCards.innerHTML += cardHTML (
       myLibrary[i].bookName,
       myLibrary[i].author,
       myLibrary[i].pageCount,
@@ -145,7 +146,7 @@ function navStatus () {
   document.querySelector(".status").innerHTML = `
     <img src="/logos/books.svg"> Total Books : ${bookCount}
     <img src="/logos/eye.svg"> Read Books : ${readBooks}
-    <img src="/logos/eye-crossed.svg"> Unread Books: ${bookCount - readBooks}`
+    <img src="/logos/eye-crossed.svg"> Unread Books: ${bookCount - readBooks}`;
 }
 
 window.onload = showBooks();
