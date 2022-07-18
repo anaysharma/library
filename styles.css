@@ -190,6 +190,7 @@ div.book-input {
 }
 
 .close-button {
+	color: rgb(120, 120, 120);
 	background-color: white;
 	outline: var(--outline);
 	font-size: 1.8rem;
@@ -235,11 +236,21 @@ div.dialog-buttons button {
 }
 
 div.dialog-buttons button[type="submit"] {
+	width: 5rem;
 	background-color: var(--color-green-light);
 }
 
 div.dialog-buttons button[type="submit"]:hover {
 	background-color: var(--color-green);
+}
+
+div.dialog-buttons button[type="reset"] {
+	width: 5rem;
+	background-color: rgb(235, 235, 235);
+}
+
+div.dialog-buttons button[type="reset"]:hover {
+	background-color: rgb(220, 220, 220);
 }
 
 button:hover {

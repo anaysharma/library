@@ -22,7 +22,7 @@ class Book {
     this.index = ++globalIdx;
   }
 
-  getName = () => this.name;
+  getName = () => this.bookName;
   getAuthor = () => this.author;
   getPageCount = () => this.pageCount;
   isRead = () => this.readStatus;
@@ -70,10 +70,10 @@ function showBooks () {
       read = ""
     }
     bookCards.innerHTML += cardHTML (
-      myLibrary[i].bookName,
-      myLibrary[i].author,
-      myLibrary[i].pageCount,
-      myLibrary[i].index,
+      myLibrary[i].getName(),
+      myLibrary[i].getAuthor(),
+      myLibrary[i].getPageCount(),
+      myLibrary[i].getIndex(),
       read
     );
   }
