@@ -51,6 +51,24 @@ function addBook () {
   form.reset();
 }
 
+function cardHTML (name, author, noOfPages, index, read) {
+  return
+    ` <div class="book-container ${read}">
+        <div class="decor"></div>
+        <div class="book-card" index="${index}">
+          <h4>${name}</h4>
+          <p>Author : ${author}</p>
+          <p>No. of pages : ${noOfPages}</p>
+          <div class="card-buttons">
+            <button class="delete-book" value="${index}"><img src="/logos/trash.svg"></button>
+            <label for="read">Read Status</label>
+            <input type="checkbox" value="${index}" name="read" class="read" ${read}>
+          </div>
+        </div>
+      </div>`
+    ;
+}
+
 function showBooks () {
   bookCards.innerHTML = "";
   for (let i = 0; i < myLibrary.length; i++) {
@@ -60,20 +78,13 @@ function showBooks () {
     } else {
       read = ""
     }
-    bookCards.innerHTML +=
-      `<div class="book-container ${read}">
-        <div class="decor"></div>
-        <div class="book-card" index="${myLibrary[i].index}">
-          <h4>${myLibrary[i].bookName}</h4>
-          <p>Author : ${myLibrary[i].author}</p>
-          <p>No. of pages : ${myLibrary[i].pageCount}</p>
-          <div class="card-buttons">
-            <button class="delete-book" value="${myLibrary[i].index}"><img src="/logos/trash.svg"></button>
-            <label for="read">Read Status</label>
-            <input type="checkbox" value="${myLibrary[i].index}" name="read" class="read" ${read}>
-          </div>
-        </div>
-      </div>`;
+    bookCards.innerHTML += cardHTML(
+      myLibrary[i].bookName,
+      myLibrary[i].author,
+      myLibrary[i].pageCount,
+      myLibrary[i].index,
+      read
+    );
   }
   navStatus();
 }
@@ -140,5 +151,5 @@ function navStatus () {
 
 window.onload = showBooks();
 form.addEventListener("submit", addBook);
-openModal.addEventListener("click", () => { modal.showModal();});
-closeModal.addEventListener("click", () => { modal.close();});
+openModal.addEventListener("click", () => { modal.showModal() });
+closeModal.addEventListener("click", () => { modal.close() });
