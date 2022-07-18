@@ -5,7 +5,6 @@ const form = document.querySelector(".form");
 const bookCards = document.querySelector(".books");
 const show = document.querySelector(".show");
 
-
 let myLibrary = [];
 var globalIdx = 0;
 
@@ -23,11 +22,11 @@ class Book {
     this.index = ++globalIdx;
   }
 
-  getName () { return this.name; }
-  getAuthor () { return this.author; }
-  getPageCount () { return this.pageCount; }
-  isRead () { return this.readStatus; }
-  getIndex () { return this.index; }
+  getName = () => this.name;
+  getAuthor = () => this.author;
+  getPageCount = () => this.pageCount;
+  isRead = () => this.readStatus;
+  getIndex = () => this.index;
 
   toggleReadStatus () {
     if (this.readStatus === true) {
@@ -51,22 +50,14 @@ function addBook () {
   form.reset();
 }
 
-function cardHTML (name, author, noOfPages, index, read) {
-  let html = 
-   `<div class="book-container ${read}">
-      <div class="decor"></div>
-      <div class="book-card" index="${index}">
-        <h4>${name}</h4>
-        <p>Author : ${author}</p>
-        <p>No. of pages : ${noOfPages}</p>
-        <div class="card-buttons">
-          <button class="delete-book" value="${index}"><img src="/logos/trash.svg"></button>
-          <label for="read">Read Status</label>
-          <input type="checkbox" value="${index}" name="read" class="read" ${read}>
-        </div>
-      </div>
-    </div>`;
-  return html;
+function deleteBook (button) {
+  let idx = button.value;
+  for (var i = myLibrary.length - 1; i >= 0; i--) {
+    if (myLibrary[i].index == idx) {
+      myLibrary.splice(i, 1);
+      showBooks();
+    }
+  }
 }
 
 function showBooks () {
@@ -87,6 +78,17 @@ function showBooks () {
     );
   }
   navStatus();
+}
+
+function changeReadStatus (element) {
+  let idx = element.value;
+  for (var i = myLibrary.length - 1; i >= 0; i--) {
+    if (myLibrary[i].index == idx) {
+      myLibrary[i].toggleReadStatus();
+      document.querySelector(".book-container").classList.toggle("checked");
+      showBooks();
+    }
+  }
 }
 
 if (document.addEventListener) {
@@ -114,27 +116,6 @@ function handleClick (event) {
   }
 }
 
-function deleteBook (button) {
-  let idx = button.value;
-  for (var i = myLibrary.length - 1; i >= 0; i--) {
-    if (myLibrary[i].index == idx) {
-      myLibrary.splice(i, 1);
-      showBooks();
-    }
-  }
-}
-
-function changeReadStatus (element) {
-  let idx = element.value;
-  for (var i = myLibrary.length - 1; i >= 0; i--) {
-    if (myLibrary[i].index == idx) {
-      myLibrary[i].toggleReadStatus();
-      document.querySelector(".book-container").classList.toggle("checked");
-      showBooks();
-    }
-  }
-}
-
 function navStatus () {
   let bookCount = myLibrary.length;
   let readBooks = 0;
@@ -147,6 +128,24 @@ function navStatus () {
     <img src="/logos/books.svg"> Total Books : ${bookCount}
     <img src="/logos/eye.svg"> Read Books : ${readBooks}
     <img src="/logos/eye-crossed.svg"> Unread Books: ${bookCount - readBooks}`;
+}
+
+function cardHTML (name, author, noOfPages, index, read) {
+  let html = 
+   `<div class="book-container ${read}">
+      <div class="decor"></div>
+      <div class="book-card" index="${index}">
+        <h4>${name}</h4>
+        <p>Author : ${author}</p>
+        <p>No. of pages : ${noOfPages}</p>
+        <div class="card-buttons">
+          <button class="delete-book" value="${index}"><img src="/logos/trash.svg"></button>
+          <label for="read">Read Status</label>
+          <input type="checkbox" value="${index}" name="read" class="read" ${read}>
+        </div>
+      </div>
+    </div>`;
+  return html;
 }
 
 window.onload = showBooks();
