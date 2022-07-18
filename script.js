@@ -52,21 +52,20 @@ function addBook () {
 }
 
 function cardHTML (name, author, noOfPages, index, read) {
-  return
-    ` <div class="book-container ${read}">
-        <div class="decor"></div>
-        <div class="book-card" index="${index}">
-          <h4>${name}</h4>
-          <p>Author : ${author}</p>
-          <p>No. of pages : ${noOfPages}</p>
-          <div class="card-buttons">
-            <button class="delete-book" value="${index}"><img src="/logos/trash.svg"></button>
-            <label for="read">Read Status</label>
-            <input type="checkbox" value="${index}" name="read" class="read" ${read}>
-          </div>
+  let html = `<div class="book-container ${read}">
+      <div class="decor"></div>
+      <div class="book-card" index="${index}">
+        <h4>${name}</h4>
+        <p>Author : ${author}</p>
+        <p>No. of pages : ${noOfPages}</p>
+        <div class="card-buttons">
+          <button class="delete-book" value="${index}"><img src="/logos/trash.svg"></button>
+          <label for="read">Read Status</label>
+          <input type="checkbox" value="${index}" name="read" class="read" ${read}>
         </div>
-      </div>`
-    ;
+      </div>
+    </div>`;
+    return html;
 }
 
 function showBooks () {
